@@ -49,16 +49,21 @@ variable "disk" {
 
 variable "efi_disk" {
   type = map(object({
-    datastore_id = optional(string)
-    file_format  = optional(string)
-    type         = optional(string, "4m")
+    datastore_id         = optional(string)
+    efi_disk_file_format = optional(string)
+    type                 = optional(string, "4m")
   }))
   default = {}
 }
 
 variable "username" {
   type    = string
-  default = "null"
+  default = null
+}
+
+variable "password" {
+  type    = string
+  default = null
 }
 
 variable "tpm_version" {
@@ -106,6 +111,11 @@ variable "cloud_config" {
   default = false
 }
 
+variable "user_data_file_id" {
+  type    = string
+  default = ""
+}
+
 variable "bios" {
   type    = string
   default = "ovmf"
@@ -138,5 +148,10 @@ variable "network_device_enabled" {
 
 variable "vlan_id" {
   type    = number
-  default = ""
+  default = 0
+}
+
+variable "tags" {
+  type    = list(string)
+  default = ["Terraform", "Tags"]
 }

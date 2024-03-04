@@ -2,8 +2,9 @@ resource "proxmox_virtual_environment_vm" "virtual_machine" {
   provider = proxmox.vm
 
   name        = var.name_vm
-  description = "Managed by Terraform"
-  tags        = ["terraform", "ubuntu"]
+  description = var.description
+
+  tags = var.tags
 
   node_name = var.node_name
   vm_id     = var.vm_id
@@ -15,7 +16,6 @@ resource "proxmox_virtual_environment_vm" "virtual_machine" {
   reboot  = var.reboot_vm
 
   agent {
-    # read 'Qemu guest agent' section, change to true only when ready
     enabled = var.agent_qemu
   }
 
@@ -35,12 +35,11 @@ resource "proxmox_virtual_environment_vm" "virtual_machine" {
     size         = each.value.size
   }
 
-  count = var.bios == "ovmf" ? var.efi_disk : 0
-  efi_disk {
-    datastore_id = each.value.datastore_id
-    file_format  = each.value.file_format
-    type         = each.value.type_efi_disk
-  }
+  # efi_disk {
+  #   datastore_id = var.bios == "ovmf" ? var.efi_disk.datastore_id : ""
+  #   file_format  = var.bios == "ovmf" ? var.efi_disk.efi_disk_file_format : ""
+  #   type         = var.bios == "ovmf" ? var.efi_disk.type_efi_disk : ""
+  # }
 
   initialization {
     ip_config {
@@ -51,11 +50,11 @@ resource "proxmox_virtual_environment_vm" "virtual_machine" {
 
     user_account {
       keys     = [trimspace(var.ssh_public_key)]
-      password = "paas"
+      password = var.password
       username = var.username
     }
 
-    # user_data_file_id = proxmox_virtual_environment_file.cloud_config.id
+    user_data_file_id = var.user_data_file_id
   }
 
   cpu {
@@ -89,5 +88,4 @@ resource "proxmox_virtual_environment_vm" "virtual_machine" {
   }
 
   template = var.template_vm
-
 }
