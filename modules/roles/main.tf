@@ -1,6 +1,6 @@
 resource "proxmox_virtual_environment_role" "terraform" {
   provider = proxmox.role
-  role_id  = var.role_id_terraform 
+  role_id  = var.role_id_terraform
 
   privileges = [
     "Datastore.Allocate",
@@ -32,7 +32,7 @@ resource "proxmox_virtual_environment_role" "terraform" {
 
 resource "proxmox_virtual_environment_role" "contributor" {
   provider = proxmox.role
-  role_id = var.role_id_contributor
+  role_id  = var.role_id_contributor
 
   privileges = [
     "Datastore.Allocate",
@@ -63,7 +63,7 @@ resource "proxmox_virtual_environment_role" "contributor" {
 
 resource "proxmox_virtual_environment_role" "reader" {
   provider = proxmox.role
-  role_id = var.role_id_reader
+  role_id  = var.role_id_reader
 
   privileges = [
     "Datastore.Audit",

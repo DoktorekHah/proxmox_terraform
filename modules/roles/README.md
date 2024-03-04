@@ -1,4 +1,4 @@
-<!-- BEGIN_TF_DOCS -->
+# Roles
 
 ## Example
 ```
@@ -13,24 +13,21 @@ module "roles" {
 }
 ```
 
-## Requirements
+<!-- BEGIN_TF_DOCS -->
+#### Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | > 1.5.0 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.46.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement_terraform) | > 1.5.0 |
+| <a name="requirement_proxmox"></a> [proxmox](#requirement_proxmox) | >= 0.46.0 |
 
-## Providers
+#### Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_proxmox.role"></a> [proxmox.role](#provider\_proxmox.role) | >= 0.46.0 |
+| <a name="provider_proxmox.role"></a> [proxmox.role](#provider_proxmox.role) | >= 0.46.0 |
 
-## Modules
-
-No modules.
-
-## Resources
+#### Resources
 
 | Name | Type |
 |------|------|
@@ -38,19 +35,19 @@ No modules.
 | [proxmox_virtual_environment_role.reader](https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_role) | resource |
 | [proxmox_virtual_environment_role.terraform](https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_role) | resource |
 
-## Inputs
+#### Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_role_id_contributor"></a> [role\_id\_contributor](#input\_role\_id\_contributor) | n/a | `string` | n/a | yes |
-| <a name="input_role_id_reader"></a> [role\_id\_reader](#input\_role\_id\_reader) | n/a | `string` | n/a | yes |
-| <a name="input_role_id_terraform"></a> [role\_id\_terraform](#input\_role\_id\_terraform) | n/a | `string` | n/a | yes |
+| Name | Description | Type | Required |
+|------|-------------|------|:--------:|
+| <a name="input_role_id_contributor"></a> [role_id_contributor](#input_role_id_contributor) | n/a | `string` | yes |
+| <a name="input_role_id_reader"></a> [role_id_reader](#input_role_id_reader) | n/a | `string` | yes |
+| <a name="input_role_id_terraform"></a> [role_id_terraform](#input_role_id_terraform) | n/a | `string` | yes |
 
-## Outputs
+#### Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_role_id_contributor"></a> [role\_id\_contributor](#output\_role\_id\_contributor) | n/a |
-| <a name="output_role_id_reader"></a> [role\_id\_reader](#output\_role\_id\_reader) | n/a |
-| <a name="output_role_id_terraform"></a> [role\_id\_terraform](#output\_role\_id\_terraform) | n/a |
+| <a name="output_role_id_contributor"></a> [role_id_contributor](#output_role_id_contributor) | n/a |
+| <a name="output_role_id_reader"></a> [role_id_reader](#output_role_id_reader) | n/a |
+| <a name="output_role_id_terraform"></a> [role_id_terraform](#output_role_id_terraform) | n/a |
 <!-- END_TF_DOCS -->
