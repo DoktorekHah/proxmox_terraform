@@ -1,11 +1,14 @@
 variable "role_id_terraform" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "role_id_contributor" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "role_id_reader" {
-  type = string
+  type    = string
+  default = null
 }
