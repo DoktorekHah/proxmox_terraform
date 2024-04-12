@@ -137,18 +137,14 @@ variable "memory" {
 }
 
 variable "network_device_bridge" {
-  type    = string
-  default = "vmbr0"
-}
-
-variable "network_device_enabled" {
-  type    = bool
-  default = true
-}
-
-variable "vlan_id" {
-  type    = number
-  default = 0
+  type = map(any)
+  default = {
+    eth1 = {
+      bridge  = "vmbr0"
+      enabled = true
+      vlan_id = 0
+    }
+  }
 }
 
 variable "tags" {

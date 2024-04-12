@@ -66,10 +66,13 @@ resource "proxmox_virtual_environment_vm" "virtual_machine" {
     dedicated = var.memory
   }
 
-  network_device {
-    bridge  = var.network_device_bridge
-    vlan_id = var.vlan_id
-    enabled = var.network_device_enabled
+  dynamic "network_device" {
+    for_each = var.network_device_bridge
+    content {
+      bridge  = network_device.value["bridge"]
+      vlan_id = network_device.value["vlan_id"]
+      enabled = network_device.value["enabled"]
+    }
   }
 
   operating_system {
@@ -84,7 +87,13 @@ resource "proxmox_virtual_environment_vm" "virtual_machine" {
   serial_device {}
 
   lifecycle {
-    ignore_changes = []
+    ignore_changes = [
+      id,
+      cpu,
+      network_device,
+      disk,
+      initialization,
+    ]
   }
 
   template = var.template_vm

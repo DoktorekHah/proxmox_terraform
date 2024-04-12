@@ -34,9 +34,18 @@ module "vm" {
     }
   }
 
-  network_device_bridge  = "vmbr0"
-  network_device_enabled = true
-  vlan_id                = 0
+  network_device_bridge = {
+    lan0 = {
+      bridge  = module.network_bridge_eth1.network_bridge_name
+      vlan_id = 0 
+      enabled = true
+     }
+    lan1 = {
+      bridge  = module.network_bridge_eth2.network_bridge_name
+      vlan_id = 0 
+      enabled = true
+    }
+  }
 
   template_vm = false
 
@@ -82,8 +91,7 @@ module "vm" {
 | <a name="input_machine"></a> [machine](#input_machine) | n/a | `string` | no |
 | <a name="input_memory"></a> [memory](#input_memory) | n/a | `number` | no |
 | <a name="input_name_vm"></a> [name_vm](#input_name_vm) | n/a | `string` | yes |
-| <a name="input_network_device_bridge"></a> [network_device_bridge](#input_network_device_bridge) | n/a | `string` | no |
-| <a name="input_network_device_enabled"></a> [network_device_enabled](#input_network_device_enabled) | n/a | `bool` | no |
+| <a name="input_network_device_bridge"></a> [network_device_bridge](#input_network_device_bridge) | n/a | `map(any)` | no |
 | <a name="input_node_name"></a> [node_name](#input_node_name) | n/a | `string` | yes |
 | <a name="input_os_config"></a> [os_config](#input_os_config) | n/a | `string` | no |
 | <a name="input_password"></a> [password](#input_password) | n/a | `string` | no |
@@ -97,6 +105,5 @@ module "vm" {
 | <a name="input_tpm_version"></a> [tpm_version](#input_tpm_version) | n/a | `string` | no |
 | <a name="input_user_data_file_id"></a> [user_data_file_id](#input_user_data_file_id) | n/a | `string` | no |
 | <a name="input_username"></a> [username](#input_username) | n/a | `string` | no |
-| <a name="input_vlan_id"></a> [vlan_id](#input_vlan_id) | n/a | `number` | no |
 | <a name="input_vm_id"></a> [vm_id](#input_vm_id) | n/a | `number` | no |
 <!-- END_TF_DOCS -->
