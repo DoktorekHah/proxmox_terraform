@@ -45,3 +45,18 @@ variable "autostart" {
   type    = bool
   default = true
 }
+
+variable "vlan_set" {
+  type    = bool
+  default = true
+}
+
+variable "vlan" {
+  type    = number
+  default = null
+}
+
+variable "vlan_name_port" {
+  type    = string
+  default = ""
+}

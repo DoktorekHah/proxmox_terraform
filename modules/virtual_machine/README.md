@@ -8,14 +8,13 @@ module "vm" {
   name_vm    = "vm"
   node_name  = var.node_name
   vm_id      = "100" 
+  bios       = "omvf"
   cores      = 1
   memory     = 2048
   agent_qemu = false
 
   username          = "root"
   ssh_public_key    = "ssh-rsa"
-  os_config         = "l26" #kernel 2.6 -> 5.* | win11
-  bios              = "seabios" #"ovmf"
   started           = true
   reboot_vm         = false
   tpm_datastore_id  = var.datastore_id
@@ -34,7 +33,7 @@ module "vm" {
     }
   }
 
-  network_device_bridge = {
+  network_device_bridge = { # TODO to map
     lan0 = {
       bridge  = module.network_bridge_eth1.network_bridge_name
       vlan_id = 0 

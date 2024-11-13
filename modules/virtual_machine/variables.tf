@@ -1,9 +1,11 @@
 variable "name_vm" {
-  type = string
+  type    = string
+  default = "vm"
 }
 
 variable "node_name" {
-  type = string
+  type    = string
+  default = "vm"
 }
 
 variable "pool_id" {
@@ -15,7 +17,7 @@ variable "vm_id" {
   type    = number
   default = "100"
   validation {
-    condition     = var.vm_id >= 3
+    condition     = can(regex("^[0-9]+$", var.vm_id >= 3)) #TODO check value char
     error_message = "Your number must be in the range from 100 to 2147483647"
   }
 }
@@ -49,8 +51,8 @@ variable "disk" {
 
 variable "efi_disk" {
   type = map(object({
-    datastore_id         = optional(string)
-    efi_disk_file_format = optional(string)
+    datastore_id         = optional(string, var.datastore_id)
+    efi_disk_file_format = optional(string, "raw")
     type                 = optional(string, "4m")
   }))
   default = {}
@@ -66,12 +68,18 @@ variable "password" {
   default = null
 }
 
-variable "tpm_version" {
-  type    = string
-  default = "v2.0"
+variable "tpm_state" {
+  type = map(object({
+    tpm_version      = optional(string)
+    tpm_datastore_id = optional(string)
+  }))
+  default = {
+    tpm_version      = "v2.0"
+    tpm_datastore_id = "local_lvm"
+  }
 }
 
-variable "tpm_datastore_id" {
+variable "version" {
   type    = string
   default = ""
 }
@@ -136,11 +144,17 @@ variable "memory" {
   default = 1024
 }
 
-variable "network_device_bridge" {
-  type = map(any)
+variable "network_device" {
+  type = map(object({
+    bridge  = string
+    model   = string
+    enabled = bool
+    vlan_id = string
+  }))
   default = {
     eth1 = {
       bridge  = "vmbr0"
+      model   = "virtio"
       enabled = true
       vlan_id = 0
     }
@@ -150,4 +164,26 @@ variable "network_device_bridge" {
 variable "tags" {
   type    = list(string)
   default = ["Terraform", "Tags"]
+}
+
+variable "datastore_cloudinit" {
+  type    = string
+  default = null
+}
+
+variable "usb" {
+  type = map(object({
+    host    = optional(string)
+    mapping = optional(string)
+    usb3    = optional(string)
+  }))
+  default = {
+    tpm_version      = "v2.0"
+    tpm_datastore_id = "local_lvm"
+  }
+}
+
+variable "dns_domain" {
+  type    = string
+  default = ""
 }

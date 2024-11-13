@@ -11,11 +11,17 @@ module "network_bridge" {
   ip_range  = "99.99.99.99/16"
   gateway   = "255.255.255.0"
   mtu       = "1500
-  comment   = "Terraform"
+  
   
   ports = [
     "ens18.99"
   ]
+
+  vlan_set = false
+  vlan_name_port = "ens18.99"
+  vlan = 1
+
+  comment   = "Terraform"
 }
 ```
 <!-- BEGIN_TF_DOCS -->

@@ -7,7 +7,9 @@ module "dns" {
     proxmox.dns = proxmox.app
   }
   node_name = var.node_name
-  ip_dns    = ["8.8.8.8"]
+  ip_dns    = [
+    "8.8.8.8",
+    ]
 }
 ```
  
