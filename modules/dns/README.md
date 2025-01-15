@@ -1,4 +1,20 @@
 <!-- BEGIN_TF_DOCS -->
+# DNS Configuration
+
+## Example
+```
+module "dns" {
+  source = "../../proxmox_terraform/modules/dns"
+  providers = {
+    proxmox = proxmox.app
+  }
+  node_name = var.node_name
+
+  ip_dns = [
+    "address"
+  ]
+}
+```
 #### Requirements
 
 | Name | Version |
