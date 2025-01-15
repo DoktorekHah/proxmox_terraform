@@ -3,13 +3,44 @@
 ## Example
 ```
 module "roles" {
-  source = "../modules/roles"
+  source = "../../proxmox_terraform/modules/roles"
   providers = {
-    proxmox.role = proxmox.app
+    proxmox = proxmox.app
   }
-  role_id_terraform   = "terraform"
-  role_id_contributor = "contributor"
-  role_id_reader      = "reader"
+  role = {
+    roles = {
+      role_name = "opentofu"
+      privileges_list = [
+        "Datastore.Allocate",
+        "Datastore.AllocateSpace",
+        "Datastore.AllocateTemplate",
+        "Datastore.Audit",
+        "Pool.Allocate",
+        "Sys.Audit",
+        "Sys.Console",
+        "Sys.Modify",
+        "SDN.Use",
+        "VM.Allocate",
+        "VM.Audit",
+        "VM.Clone",
+        "VM.Config.CDROM",
+        "VM.Config.Cloudinit",
+        "VM.Config.CPU",
+        "VM.Config.Disk",
+        "VM.Config.HWType",
+        "VM.Config.Memory",
+        "VM.Config.Network",
+        "VM.Config.Options",
+        "VM.Migrate",
+        "VM.Monitor",
+        "VM.PowerMgmt",
+      ]
+    }
+  }
+}
+
+output "role" {
+  value = module.roles[*]["role"]["name"]["roles"]
 }
 ```
 
@@ -19,35 +50,29 @@ module "roles" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement_terraform) | > 1.5.0 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement_proxmox) | >= 0.46.0 |
+| <a name="requirement_proxmox"></a> [proxmox](#requirement_proxmox) | >= 0.46.0, < 1.0.0 |
 
 #### Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_proxmox.role"></a> [proxmox.role](#provider_proxmox.role) | >= 0.46.0 |
+| <a name="provider_proxmox"></a> [proxmox](#provider_proxmox) | >= 0.46.0, < 1.0.0 |
 
 #### Resources
 
 | Name | Type |
 |------|------|
-| [proxmox_virtual_environment_role.contributor](https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_role) | resource |
-| [proxmox_virtual_environment_role.reader](https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_role) | resource |
-| [proxmox_virtual_environment_role.terraform](https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_role) | resource |
+| [proxmox_virtual_environment_role.this](https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_role) | resource |
 
 #### Inputs
 
 | Name | Description | Type | Required |
 |------|-------------|------|:--------:|
-| <a name="input_role_id_contributor"></a> [role_id_contributor](#input_role_id_contributor) | n/a | `string` | yes |
-| <a name="input_role_id_reader"></a> [role_id_reader](#input_role_id_reader) | n/a | `string` | yes |
-| <a name="input_role_id_terraform"></a> [role_id_terraform](#input_role_id_terraform) | n/a | `string` | yes |
+| <a name="input_role"></a> [role](#input_role) | n/a | <pre>map(object({<br>    role_name       = string<br>    privileges_list = list(string)<br>  }))</pre> | no |
 
 #### Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_role_id_contributor"></a> [role_id_contributor](#output_role_id_contributor) | n/a |
-| <a name="output_role_id_reader"></a> [role_id_reader](#output_role_id_reader) | n/a |
-| <a name="output_role_id_terraform"></a> [role_id_terraform](#output_role_id_terraform) | n/a |
+| <a name="output_role"></a> [role](#output_role) | n/a |
 <!-- END_TF_DOCS -->
