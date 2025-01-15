@@ -1,15 +1,9 @@
 output "network_interface" {
   value = {
-    id       = proxmox_virtual_environment_network_linux_bridge.this.id
-    name     = proxmox_virtual_environment_network_linux_bridge.this.name
-    ip_range = proxmox_virtual_environment_network_linux_bridge.this.address
-    ports    = proxmox_virtual_environment_network_linux_bridge.this.ports
+    id = { for k, v in proxmox_virtual_environment_network_linux_bridge.this : k => v.id }
+    name = { for k, v in proxmox_virtual_environment_network_linux_bridge.this : k => v.name }
+    ports = { for k, v in proxmox_virtual_environment_network_linux_bridge.this : k => v.ports }
+
   }
   description = "Network bridge id, name, address and ports"
-}
-
-output "vlan" {
-  value = {
-    name = proxmox_virtual_environment_network_linux_vlan.this.name
-  }
 }
