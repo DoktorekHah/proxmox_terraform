@@ -1,27 +1,44 @@
 # Network_Bridge
 ```
-module "network_bridge" {
-  source = "../modules/network_bridge"
+module "network_card_bridge" {
+  source = "../../proxmox_terraform/modules/network_bridge"
   providers = {
-    proxmox.vm = proxmox.app
+    proxmox = proxmox.app
   }
 
   node_name = var.node_name
-  name      = "vmbr99"
-  ip_range  = "99.99.99.99/16"
-  gateway   = "255.255.255.0"
-  mtu       = "1500
-  
-  
-  ports = [
-    "ens18.99"
+
+  network_card = {
+    name_bridge0 = {
+      name      = "vmbr1"
+      mtu       = "1500"
+      comment   = "comment"
+      vlan_aware = false
+      ports = [
+        "name_port"
+        #module.vlan["vlan"].name["name_vlan"]
+      ]
+    }
+
+    name_bridge1 = {
+      name      = "vmbr2"
+      mtu       = "1500"
+      comment   = "comment"
+      vlan_aware = false
+      ports = [
+        "name_port"
+        #module.vlan["vlan"].name["name_vlan"]
+      ]
+    }
+  }
+
+  depends_on = [
+    module.vlan
   ]
 
-  vlan_set = false
-  vlan_name_port = "ens18.99"
-  vlan = 1
-
-  comment   = "Terraform"
+}
+output network_bridge {
+  value = module.network_card_bridge[*]["network_interface"]["ports"]["name_bridge0"]
 }
 ```
 <!-- BEGIN_TF_DOCS -->
